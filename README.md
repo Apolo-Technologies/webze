@@ -87,8 +87,8 @@ webze.setProvider(new webze.providers.HttpProvider('http://host.url', 0, BasicAu
 There you go, now you can use it:
 
 ```js
-var coinbase = webze.eth.coinbase;
-var balance = webze.eth.getBalance(coinbase);
+var coinbase = webze.zrm.coinbase;
+var balance = webze.zrm.getBalance(coinbase);
 ```
 
 You can find more examples in [`example`](https://github.com/zerium/webze.js/tree/master/example) directory.

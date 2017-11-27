@@ -2492,7 +2492,7 @@ module.exports={
 
 var RequestManager = require('./webze/requestmanager');
 var Iban = require('./webze/iban');
-var Eth = require('./webze/methods/eth');
+    var Zrm = require('./webze/methods/zrm');
 var DB = require('./webze/methods/db');
 var Shh = require('./webze/methods/shh');
 var Net = require('./webze/methods/net');
@@ -2514,7 +2514,7 @@ var BigNumber = require('bignumber.js');
     function Webze (provider) {
     this._requestManager = new RequestManager(provider);
     this.currentProvider = provider;
-    this.eth = new Eth(this);
+    this.zrm = new Zrm(this);
     this.db = new DB(this);
     this.shh = new Shh(this);
     this.net = new Net(this);
@@ -2616,7 +2616,7 @@ var properties = function () {
     module.exports = Webze;
 
 
-},{"./utils/sha3":19,"./utils/utils":20,"./version.json":21,"./webze/batch":24,"./webze/extend":28,"./webze/httpprovider":32,"./webze/iban":33,"./webze/ipcprovider":34,"./webze/methods/db":37,"./webze/methods/eth":38,"./webze/methods/net":39,"./webze/methods/personal":40,"./webze/methods/shh":41,"./webze/methods/swarm":42,"./webze/property":45,"./webze/requestmanager":46,"./webze/settings":47,"bignumber.js":"bignumber.js"}],23:[function(require,module,exports){
+}, { "./utils/sha3": 19, "./utils/utils": 20, "./version.json": 21, "./webze/batch": 24, "./webze/extend": 28, "./webze/httpprovider": 32, "./webze/iban": 33, "./webze/ipcprovider": 34, "./webze/methods/db": 37,"./webze/methods/zrm":38,"./webze/methods/net":39,"./webze/methods/personal":40,"./webze/methods/shh":41,"./webze/methods/swarm":42,"./webze/property":45,"./webze/requestmanager":46,"./webze/settings":47,"bignumber.js":"bignumber.js"}],23:[function(require,module,exports){
 /*
     This file is part of webze.js.
 
@@ -2695,7 +2695,7 @@ AllSolidityEvents.prototype.execute = function (options, callback) {
 
     var o = this.encode(options);
     var formatter = this.decode.bind(this);
-    return new Filter(o, 'zrm', this._requestManager, watches.eth(), formatter, callback);
+    return new Filter(o, 'zrm', this._requestManager, watches.zrm(), formatter, callback);
 };
 
 AllSolidityEvents.prototype.attachToContract = function (contract) {
@@ -2833,7 +2833,7 @@ var addFunctionsToContract = function (contract) {
     contract.abi.filter(function (json) {
         return json.type === 'function';
     }).map(function (json) {
-        return new SolidityFunction(contract._eth, json, contract.address);
+        return new SolidityFunction(contract._zrm, json, contract.address);
     }).forEach(function (f) {
         f.attachToContract(contract);
     });
@@ -2851,11 +2851,11 @@ var addEventsToContract = function (contract) {
         return json.type === 'event';
     });
 
-    var All = new AllEvents(contract._eth._requestManager, events, contract.address);
+    var All = new AllEvents(contract._zrm._requestManager, events, contract.address);
     All.attachToContract(contract);
 
     events.map(function (json) {
-        return new SolidityEvent(contract._eth._requestManager, json, contract.address);
+        return new SolidityEvent(contract._zrm._requestManager, json, contract.address);
     }).forEach(function (e) {
         e.attachToContract(contract);
     });
@@ -2875,7 +2875,7 @@ var checkForContractAddress = function(contract, callback){
         callbackFired = false;
 
     // wait for receipt
-    var filter = contract._eth.filter('latest', function(e){
+    var filter = contract._zrm.filter('latest', function(e){
         if (!e && !callbackFired) {
             count++;
 
@@ -2893,10 +2893,10 @@ var checkForContractAddress = function(contract, callback){
 
             } else {
 
-                contract._eth.getTransactionReceipt(contract.transactionHash, function(e, receipt){
+                contract._zrm.getTransactionReceipt(contract.transactionHash, function(e, receipt){
                     if(receipt && !callbackFired) {
 
-                        contract._eth.getCode(receipt.contractAddress, function(e, code){
+                        contract._zrm.getCode(receipt.contractAddress, function(e, code){
                             /*jshint maxcomplexity: 6 */
 
                             if(callbackFired || !code)
@@ -2939,8 +2939,8 @@ var checkForContractAddress = function(contract, callback){
  * @method ContractFactory
  * @param {Array} abi
  */
-var ContractFactory = function (eth, abi) {
-    this.eth = eth;
+    var ContractFactory = function (zrm, abi) {
+        this.zrm = zrm;
     this.abi = abi;
 
     /**
@@ -2956,7 +2956,7 @@ var ContractFactory = function (eth, abi) {
     this.new = function () {
         /*jshint maxcomplexity: 7 */
         
-        var contract = new Contract(this.eth, this.abi);
+        var contract = new Contract(this.zrm, this.abi);
 
         // parse arguments
         var options = {}; // required!
@@ -2988,7 +2988,7 @@ var ContractFactory = function (eth, abi) {
         if (callback) {
 
             // wait for the contract address adn check if the code was deployed
-            this.eth.sendTransaction(options, function (err, hash) {
+            this.zrm.sendTransaction(options, function (err, hash) {
                 if (err) {
                     callback(err);
                 } else {
@@ -3002,7 +3002,7 @@ var ContractFactory = function (eth, abi) {
                 }
             });
         } else {
-            var hash = this.eth.sendTransaction(options);
+            var hash = this.zrm.sendTransaction(options);
             // add the transaction hash
             contract.transactionHash = hash;
             checkForContractAddress(contract);
@@ -3037,7 +3037,7 @@ var ContractFactory = function (eth, abi) {
  * otherwise calls callback function (err, contract)
  */
 ContractFactory.prototype.at = function (address, callback) {
-    var contract = new Contract(this.eth, this.abi, address);
+    var contract = new Contract(this.zrm, this.abi, address);
 
     // this functions are not part of prototype,
     // because we dont want to spoil the interface
@@ -3077,8 +3077,8 @@ ContractFactory.prototype.getData = function () {
  * @param {Array} abi
  * @param {Address} contract address
  */
-var Contract = function (eth, abi, address) {
-    this._eth = eth;
+    var Contract = function (zrm, abi, address) {
+        this._zrm = zrm;
     this.transactionHash = null;
     this.address = address;
     this.abi = abi;
@@ -3320,7 +3320,7 @@ SolidityEvent.prototype.execute = function (indexed, options, callback) {
 
     var o = this.encode(indexed, options);
     var formatter = this.decode.bind(this);
-    return new Filter(o, 'zrm', this._requestManager, watches.eth(), formatter, callback);
+    return new Filter(o, 'zrm', this._requestManager, watches.zrm(), formatter, callback);
 };
 
 /**
@@ -3981,8 +3981,8 @@ var sha3 = require('../utils/sha3');
 /**
  * This prototype should be used to call/sendTransaction to solidity functions
  */
-var SolidityFunction = function (eth, json, address) {
-    this._eth = eth;
+    var SolidityFunction = function (zrm, json, address) {
+        this._zrm = zrm;
     this._inputTypes = json.inputs.map(function (i) {
         return i.type;
     });
@@ -4084,12 +4084,12 @@ SolidityFunction.prototype.call = function () {
 
 
     if (!callback) {
-        var output = this._eth.call(payload, defaultBlock);
+        var output = this._zrm.call(payload, defaultBlock);
         return this.unpackOutput(output);
     }
 
     var self = this;
-    this._eth.call(payload, defaultBlock, function (error, output) {
+    this._zrm.call(payload, defaultBlock, function (error, output) {
         if (error) return callback(error, null);
 
         var unpacked = null;
@@ -4119,10 +4119,10 @@ SolidityFunction.prototype.sendTransaction = function () {
     }
 
     if (!callback) {
-        return this._eth.sendTransaction(payload);
+        return this._zrm.sendTransaction(payload);
     }
 
-    this._eth.sendTransaction(payload, callback);
+    this._zrm.sendTransaction(payload, callback);
 };
 
 /**
@@ -4136,10 +4136,10 @@ SolidityFunction.prototype.estimateGas = function () {
     var payload = this.toPayload(args);
 
     if (!callback) {
-        return this._eth.estimateGas(payload);
+        return this._zrm.estimateGas(payload);
     }
 
-    this._eth.estimateGas(payload, callback);
+    this._zrm.estimateGas(payload, callback);
 };
 
 /**
@@ -5170,7 +5170,7 @@ module.exports = DB;
     along with webze.js.  If not, see <http://www.gnu.org/licenses/>.
 */
 /**
- * @file eth.js
+ * @file zrm.js
  * @author Marek Kotewicz <marek@ethdev.com>
  * @author Fabian Vogelsteller <fabian@ethdev.com>
  * @date 2015
@@ -5211,7 +5211,7 @@ var uncleCountCall = function (args) {
     return (utils.isString(args[0]) && args[0].indexOf('0x') === 0) ? 'zrm_getUncleCountByBlockHash' : 'zrm_getUncleCountByBlockNumber';
 };
 
-function Eth(webze) {
+    function Zrm(webze) {
     this._requestManager = webze._requestManager;
 
     var self = this;
@@ -5231,7 +5231,7 @@ function Eth(webze) {
     this.sendIBANTransaction = transfer.bind(null, this);
 }
 
-Object.defineProperty(Eth.prototype, 'defaultBlock', {
+    Object.defineProperty(Zrm.prototype, 'defaultBlock', {
     get: function () {
         return c.defaultBlock;
     },
@@ -5241,7 +5241,7 @@ Object.defineProperty(Eth.prototype, 'defaultBlock', {
     }
 });
 
-Object.defineProperty(Eth.prototype, 'defaultAccount', {
+    Object.defineProperty(Zrm.prototype, 'defaultAccount', {
     get: function () {
         return c.defaultAccount;
     },
@@ -5485,28 +5485,28 @@ var properties = function () {
     ];
 };
 
-Eth.prototype.contract = function (abi) {
+    Zrm.prototype.contract = function (abi) {
     var factory = new Contract(this, abi);
     return factory;
 };
 
-Eth.prototype.filter = function (options, callback, filterCreationErrorCallback) {
-    return new Filter(options, 'zrm', this._requestManager, watches.eth(), formatters.outputLogFormatter, callback, filterCreationErrorCallback);
+    Zrm.prototype.filter = function (options, callback, filterCreationErrorCallback) {
+    return new Filter(options, 'zrm', this._requestManager, watches.zrm(), formatters.outputLogFormatter, callback, filterCreationErrorCallback);
 };
 
-Eth.prototype.namereg = function () {
+    Zrm.prototype.namereg = function () {
     return this.contract(namereg.global.abi).at(namereg.global.address);
 };
 
-Eth.prototype.icapNamereg = function () {
+    Zrm.prototype.icapNamereg = function () {
     return this.contract(namereg.icap.abi).at(namereg.icap.address);
 };
 
-Eth.prototype.isSyncing = function (callback) {
+    Zrm.prototype.isSyncing = function (callback) {
     return new IsSyncing(this._requestManager, callback);
 };
 
-module.exports = Eth;
+    module.exports = Zrm;
 
 },{"../../utils/config":18,"../../utils/utils":20,"../contract":25,"../filter":29,"../formatters":30,"../iban":33,"../method":36,"../namereg":44,"../property":45,"../syncing":48,"../transfer":49,"./watches":43}],39:[function(require,module,exports){
 /*
@@ -5525,7 +5525,7 @@ module.exports = Eth;
     You should have received a copy of the GNU Lesser General Public License
     along with webze.js.  If not, see <http://www.gnu.org/licenses/>.
 */
-/** @file eth.js
+/** @file zrm.js
  * @authors:
  *   Marek Kotewicz <marek@ethdev.com>
  * @date 2015
@@ -5545,7 +5545,7 @@ var Net = function (webze) {
     });
 };
 
-/// @returns an array of objects describing webze.eth api properties
+/// @returns an array of objects describing webze.zrm api properties
 var properties = function () {
     return [
         new Property({
@@ -5580,7 +5580,7 @@ module.exports = Net;
     along with webze.js.  If not, see <http://www.gnu.org/licenses/>.
 */
 /**
- * @file eth.js
+ * @file zrm.js
  * @author Marek Kotewicz <marek@ethdev.com>
  * @author Fabian Vogelsteller <fabian@ethdev.com>
  * @date 2015
@@ -5997,8 +5997,8 @@ module.exports = Swarm;
 
 var Method = require('../method');
 
-/// @returns an array of objects describing webze.eth.filter api methods
-var eth = function () {
+/// @returns an array of objects describing webze.zrm.filter api methods
+    var zrm = function () {
     var newFilterCall = function (args) {
         var type = args[0];
 
@@ -6076,7 +6076,7 @@ var shh = function () {
 };
 
 module.exports = {
-    eth: eth,
+    zrm: zrm,
     shh: shh
 };
 
@@ -6676,23 +6676,23 @@ var exchangeAbi = require('../contracts/SmartExchange.json');
  * @param {Value} value to be tranfered
  * @param {Function} callback, callback
  */
-var transfer = function (eth, from, to, value, callback) {
+    var transfer = function (zrm, from, to, value, callback) {
     var iban = new Iban(to); 
     if (!iban.isValid()) {
         throw new Error('invalid iban address');
     }
 
     if (iban.isDirect()) {
-        return transferToAddress(eth, from, iban.address(), value, callback);
+        return transferToAddress(zrm, from, iban.address(), value, callback);
     }
     
     if (!callback) {
-        var address = eth.icapNamereg().addr(iban.institution());
-        return deposit(eth, from, address, value, iban.client());
+        var address = zrm.icapNamereg().addr(iban.institution());
+        return deposit(zrm, from, address, value, iban.client());
     }
 
-    eth.icapNamereg().addr(iban.institution(), function (err, address) {
-        return deposit(eth, from, address, value, iban.client(), callback);
+    zrm.icapNamereg().addr(iban.institution(), function (err, address) {
+        return deposit(zrm, from, address, value, iban.client(), callback);
     });
     
 };
@@ -6706,8 +6706,8 @@ var transfer = function (eth, from, to, value, callback) {
  * @param {Value} value to be tranfered
  * @param {Function} callback, callback
  */
-var transferToAddress = function (eth, from, to, value, callback) {
-    return eth.sendTransaction({
+    var transferToAddress = function (zrm, from, to, value, callback) {
+        return zrm.sendTransaction({
         address: to,
         from: from,
         value: value
@@ -6724,9 +6724,9 @@ var transferToAddress = function (eth, from, to, value, callback) {
  * @param {String} client unique identifier
  * @param {Function} callback, callback
  */
-var deposit = function (eth, from, to, value, client, callback) {
+    var deposit = function (zrm, from, to, value, client, callback) {
     var abi = exchangeAbi;
-    return eth.contract(abi).at(to).deposit(client, {
+    return zrm.contract(abi).at(to).deposit(client, {
         from: from,
         value: value
     }, callback);
