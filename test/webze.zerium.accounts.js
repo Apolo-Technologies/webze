@@ -9,7 +9,7 @@ var method = 'accounts';
 var tests = [{
     result: ['0x47d33b27bb249a2dbab4c0612bf9caf4c1950855'],
     formattedResult: ['0x47d33b27bb249a2dbab4c0612bf9caf4c1950855'],
-    call: 'eth_'+ method
+    call: 'zrm_'+ method
 }];
 
 describe('webze.eth', function () {

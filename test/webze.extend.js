@@ -8,13 +8,13 @@ var webze = new Webze();
 var tests = [{
     properties: [new webze._extend.Property({
         name: 'gasPrice',
-        getter: 'eth_gasPrice',
+        getter: 'zrm_gasPrice',
         outputFormatter: webze._extend.formatters.outputBigNumberFormatter
     })]
 },{
     methods: [new webze._extend.Method({
         name: 'getBalance',
-        call: 'eth_getBalance',
+        call: 'zrm_getBalance',
         params: 2,
         inputFormatter: [webze._extend.utils.toAddress, webze._extend.formatters.inputDefaultBlockNumberFormatter],
         outputFormatter: webze._extend.formatters.outputBigNumberFormatter
@@ -23,12 +23,12 @@ var tests = [{
     property: 'admin',
     properties: [new webze._extend.Property({
         name: 'gasPrice',
-        getter: 'eth_gasPrice',
+        getter: 'zrm_gasPrice',
         outputFormatter: webze._extend.formatters.outputBigNumberFormatter
     })],
     methods: [new webze._extend.Method({
         name: 'getBalance',
-        call: 'eth_getBalance',
+        call: 'zrm_getBalance',
         params: 2,
         inputFormatter: [webze._extend.utils.toAddress, webze._extend.formatters.inputDefaultBlockNumberFormatter],
         outputFormatter: webze._extend.formatters.outputBigNumberFormatter

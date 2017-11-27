@@ -18,7 +18,7 @@ var tests = [{
         currentBlock: 11,
         highestBlock: 11
     },
-    call: 'eth_syncing'
+    call: 'zrm_syncing'
 }, {
     args: [],
     formattedArgs: [],
@@ -36,10 +36,10 @@ var tests = [{
         knownStates: 11,
         pulledStates: 11
     },
-    call: 'eth_syncing'
+    call: 'zrm_syncing'
 }];
 
-describe('eth', function () {
+describe('zrm', function () {
     describe(method, function () {
         tests.forEach(function (test, index) {
             it('property test: ' + index, function (done) {

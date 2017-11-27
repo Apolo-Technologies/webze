@@ -230,13 +230,13 @@ describe('webze.eth.contract', function() {
         provider.injectValidation(function (payload) {
             if (steps === 1) {
                 assert.equal(payload.jsonrpc, '2.0');
-                assert.equal(payload.method, 'eth_sendTransaction');
+                assert.equal(payload.method, 'zrm_sendTransaction');
                 assert.equal(payload.params[0].data, code + '0000000000000000000000000000000000000000000000000000000000000002');
                 steps++;
 
             } else if (steps === 2) {
                 assert.equal(payload.jsonrpc, '2.0');
-                assert.equal(payload.method, 'eth_newBlockFilter');
+                assert.equal(payload.method, 'zrm_newBlockFilter');
                 steps++;
             }
         });

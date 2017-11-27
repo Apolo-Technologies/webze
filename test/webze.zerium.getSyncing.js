@@ -5,7 +5,7 @@ var Webzee = require('../index');
 var assert = chai.assert;
 var FakeHttpProvider = require('./helpers/FakeHttpProvider');
 
-describe('eth', function () {
+describe('zrm', function () {
     describe('getSyncing', function () {
         it('syncing object', function (done) {
             // given
@@ -18,7 +18,7 @@ describe('eth', function () {
             });
             provider.injectValidation(function(payload) {
                 assert.equal(payload.jsonrpc, '2.0', 'failed');
-                assert.equal(payload.method, 'eth_syncing');
+                assert.equal(payload.method, 'zrm_syncing');
             });
 
             // call
@@ -39,7 +39,7 @@ describe('eth', function () {
             provider.injectResult(false);
             provider.injectValidation(function(payload) {
                 assert.equal(payload.jsonrpc, '2.0', 'failed');
-                assert.equal(payload.method, 'eth_syncing');
+                assert.equal(payload.method, 'zrm_syncing');
             });
 
             // call

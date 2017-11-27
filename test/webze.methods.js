@@ -17,7 +17,7 @@ describe('webze', function() {
         u.methodExists(webze, 'reset');
 
         u.propertyExists(webze, 'providers');
-        u.propertyExists(webze, 'eth');
+        u.propertyExists(webze, 'zrm');
         u.propertyExists(webze, 'db');
         u.propertyExists(webze, 'shh');
     });
