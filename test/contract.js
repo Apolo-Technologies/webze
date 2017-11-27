@@ -1,6 +1,6 @@
 var chai = require('chai');
 var assert = chai.assert;
-var Web3 = require('../index');
+var Webze = require('../index');
 var FakeHttpProvider = require('./helpers/FakeHttpProvider');
 var FakeHttpProvider2 = require('./helpers/FakeHttpProvider2');
 var utils = require('../lib/utils/utils');
@@ -62,7 +62,7 @@ describe('contract', function () {
     describe('event', function () {
         it('should create event filter', function (done) {
             var provider = new FakeHttpProvider();
-            var webze = new Web3(provider);
+            var webze = new Webze(provider);
             var signature = 'Changed(address,uint256,uint256,uint256)';
             var step = 0;
             provider.injectValidation(function (payload) {
@@ -133,7 +133,7 @@ describe('contract', function () {
 
         it('should create event filter and watch immediately', function (done) {
             var provider = new FakeHttpProvider();
-            var webze = new Web3(provider);
+            var webze = new Webze(provider);
             var signature = 'Changed(address,uint256,uint256,uint256)';
             var step = 0;
             provider.injectValidation(function (payload) {
@@ -203,7 +203,7 @@ describe('contract', function () {
 
         it('should create all event filter', function (done) {
             var provider = new FakeHttpProvider();
-            var webze = new Web3(provider);
+            var webze = new Webze(provider);
             var signature = 'Changed(address,uint256,uint256,uint256)';
             var step = 0;
             provider.injectValidation(function (payload) {
@@ -270,7 +270,7 @@ describe('contract', function () {
 
         it('should call constant function', function () {
             var provider = new FakeHttpProvider();
-            var webze = new Web3(provider);
+            var webze = new Webze(provider);
             provider.injectResult('0x0000000000000000000000000000000000000000000000000000000000000032');
             var signature = 'balance(address)'
             var address = '0x1234567890123456789012345678901234567891';
@@ -291,7 +291,7 @@ describe('contract', function () {
 
         it('should call constant function with default block', function () {
             var provider = new FakeHttpProvider();
-            var webze = new Web3(provider);
+            var webze = new Webze(provider);
             provider.injectResult('0x0000000000000000000000000000000000000000000000000000000000000032');
             var signature = 'balance(address)'
             var address = '0x1234567890123456789012345678901234567891';
@@ -312,7 +312,7 @@ describe('contract', function () {
 
         it('should sendTransaction to contract function', function () {
             var provider = new FakeHttpProvider();
-            var webze = new Web3(provider);
+            var webze = new Webze(provider);
             var signature = 'send(address,uint256)';
             var address = '0x1234567890123456789012345678901234567891';
             provider.injectValidation(function (payload) {
@@ -333,7 +333,7 @@ describe('contract', function () {
 
         it('should make a call with optional params', function () {
             var provider = new FakeHttpProvider();
-            var webze = new Web3(provider);
+            var webze = new Webze(provider);
             provider.injectResult('0x0000000000000000000000000000000000000000000000000000000000000032');
             var signature = 'balance(address)';
             var address = '0x1234567890123456789012345678901234567891';
@@ -356,7 +356,7 @@ describe('contract', function () {
 
         it('should throw if called with optional params without all args', function () {
             var provider = new FakeHttpProvider();
-            var webze = new Web3(provider);
+            var webze = new Webze(provider);
             provider.injectResult('0x0000000000000000000000000000000000000000000000000000000000000032');
             var signature = 'balance(address)';
             var address = '0x1234567890123456789012345678901234567891';
@@ -381,7 +381,7 @@ describe('contract', function () {
 
         it('should explicitly make a call with optional params', function () {
             var provider = new FakeHttpProvider();
-            var webze = new Web3(provider);
+            var webze = new Webze(provider);
             provider.injectResult('0x0000000000000000000000000000000000000000000000000000000000000032');
             var signature = 'balance(address)';
             var address = '0x1234567890123456789012345678901234567891';
@@ -404,7 +404,7 @@ describe('contract', function () {
 
         it('should explicitly make a call with optional params and defaultBlock', function () {
             var provider = new FakeHttpProvider();
-            var webze = new Web3(provider);
+            var webze = new Webze(provider);
             provider.injectResult('0x0000000000000000000000000000000000000000000000000000000000000032');
             var signature = 'balance(address)';
             var address = '0x1234567890123456789012345678901234567891';
@@ -427,7 +427,7 @@ describe('contract', function () {
 
         it('it should throw if sendTransaction with optional params without all args', function () {
             var provider = new FakeHttpProvider();
-            var webze = new Web3(provider);
+            var webze = new Webze(provider);
             var signature = 'send(address,uint256)';
             var address = '0x1234567890123456789012345678901234567891';
             provider.injectValidation(function (payload) {
@@ -456,7 +456,7 @@ describe('contract', function () {
 
         it('should sendTransaction with optional params', function () {
             var provider = new FakeHttpProvider();
-            var webze = new Web3(provider);
+            var webze = new Webze(provider);
             var signature = 'send(address,uint256)';
             var address = '0x1234567890123456789012345678901234567891';
             provider.injectValidation(function (payload) {
@@ -480,7 +480,7 @@ describe('contract', function () {
 
         it('should sendTransaction with bigNum param and optional params', function () {
             var provider = new FakeHttpProvider();
-            var webze = new Web3(provider);
+            var webze = new Webze(provider);
             var signature = 'send(address,uint256)';
             var address = '0x1234567890123456789012345678901234567891';
             provider.injectValidation(function (payload) {
@@ -504,7 +504,7 @@ describe('contract', function () {
 
         it('should explicitly sendTransaction with optional params', function () {
             var provider = new FakeHttpProvider();
-            var webze = new Web3(provider);
+            var webze = new Webze(provider);
             var signature = 'send(address,uint256)';
             var address = '0x1234567890123456789012345678901234567891';
             provider.injectValidation(function (payload) {
@@ -528,7 +528,7 @@ describe('contract', function () {
 
         it('should explicitly sendTransaction with optional params and call callback without error', function (done) {
             var provider = new FakeHttpProvider();
-            var webze = new Web3(provider);
+            var webze = new Webze(provider);
             var address = '0x1234567890123456789012345678901234567891';
             var signature = 'send(address,uint256)';
             provider.injectValidation(function (payload) {
@@ -555,7 +555,7 @@ describe('contract', function () {
 
         it('should explicitly estimateGas with optional params', function () {
             var provider = new FakeHttpProvider();
-            var webze = new Web3(provider);
+            var webze = new Webze(provider);
             var signature = 'send(address,uint256)';
             var address = '0x1234567890123456789012345678901234567891';
             provider.injectValidation(function (payload) {
@@ -579,7 +579,7 @@ describe('contract', function () {
 
         it('should call testArr method and properly parse result', function () {
             var provider = new FakeHttpProvider2();
-            var webze = new Web3(provider);
+            var webze = new Webze(provider);
             var signature = 'testArr(int[])';
             var address = '0x1234567890123456789012345678901234567891';
             provider.injectResultList([{
@@ -607,7 +607,7 @@ describe('contract', function () {
 
         it('should call testArr method, properly parse result and return the result async', function (done) {
             var provider = new FakeHttpProvider2();
-            var webze = new Web3(provider);
+            var webze = new Webze(provider);
             var signature = 'testArr(int[])';
             var address = '0x1234567890123456789012345678901234567891';
             provider.injectResultList([{

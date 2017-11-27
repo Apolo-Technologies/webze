@@ -4,8 +4,8 @@
     <script type="text/javascript" src="../dist/webze.js"></script>
     <script type="text/javascript">
 
-        var Web3 = require('webze');
-        var webze = new Web3();
+        var Webze = require('webze');
+        var webze = new Webze();
         webze.setProvider(new webze.providers.HttpProvider('http://localhost:8545'));
 
         var source = "" +
@@ -33,11 +33,11 @@
         var update = function (err, x) {
             document.getElementById('result').textContent = JSON.stringify(x, null, 2);
         };
-    
+
         var createContract = function () {
             // let's assume that we have a private key to coinbase ;)
             webze.eth.defaultAccount = webze.eth.coinbase;
-            
+
             document.getElementById('create').style.visibility = 'hidden';
             document.getElementById('status').innerText = "transaction sent, waiting for confirmation";
 
@@ -63,10 +63,10 @@
         var callContract = function () {
             counter++;
             var all = 70 + counter;
-            document.getElementById('count').innerText = 'Transaction sent ' + counter + ' times. ' + 
+            document.getElementById('count').innerText = 'Transaction sent ' + counter + ' times. ' +
                 'Expected x value is: ' + (all - (all % 2 ? 0 : 1)) + ' ' +
                 'Waiting for the blocks to be mined...';
-                 
+
             contract.inc();
         };
 

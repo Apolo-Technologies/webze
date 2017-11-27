@@ -2393,7 +2393,7 @@ var isJson = function (str) {
 };
 
 /**
- * Returns true if given string is a valid Ethereum block header bloom.
+ * Returns true if given string is a valid Zerium block header bloom.
  *
  * @method isBloom
  * @param {String} hex encoded bloom filter
@@ -2511,7 +2511,7 @@ var BigNumber = require('bignumber.js');
 
 
 
-function Web3 (provider) {
+    function Webze (provider) {
     this._requestManager = new RequestManager(provider);
     this.currentProvider = provider;
     this.eth = new Eth(this);
@@ -2535,48 +2535,48 @@ function Web3 (provider) {
 }
 
 // expose providers on the class
-Web3.providers = {
+    Webze.providers = {
     HttpProvider: HttpProvider,
     IpcProvider: IpcProvider
 };
 
-Web3.prototype.setProvider = function (provider) {
+    Webze.prototype.setProvider = function (provider) {
     this._requestManager.setProvider(provider);
     this.currentProvider = provider;
 };
 
-Web3.prototype.reset = function (keepIsSyncing) {
+    Webze.prototype.reset = function (keepIsSyncing) {
     this._requestManager.reset(keepIsSyncing);
     this.settings = new Settings();
 };
 
-Web3.prototype.BigNumber = BigNumber;
-Web3.prototype.toHex = utils.toHex;
-Web3.prototype.toAscii = utils.toAscii;
-Web3.prototype.toUtf8 = utils.toUtf8;
-Web3.prototype.fromAscii = utils.fromAscii;
-Web3.prototype.fromUtf8 = utils.fromUtf8;
-Web3.prototype.toDecimal = utils.toDecimal;
-Web3.prototype.fromDecimal = utils.fromDecimal;
-Web3.prototype.toBigNumber = utils.toBigNumber;
-Web3.prototype.toWei = utils.toWei;
-Web3.prototype.fromWei = utils.fromWei;
-Web3.prototype.isAddress = utils.isAddress;
-Web3.prototype.isChecksumAddress = utils.isChecksumAddress;
-Web3.prototype.toChecksumAddress = utils.toChecksumAddress;
-Web3.prototype.isIBAN = utils.isIBAN;
-Web3.prototype.padLeft = utils.padLeft;
-Web3.prototype.padRight = utils.padRight;
+    Webze.prototype.BigNumber = BigNumber;
+    Webze.prototype.toHex = utils.toHex;
+    Webze.prototype.toAscii = utils.toAscii;
+    Webze.prototype.toUtf8 = utils.toUtf8;
+    Webze.prototype.fromAscii = utils.fromAscii;
+    Webze.prototype.fromUtf8 = utils.fromUtf8;
+    Webze.prototype.toDecimal = utils.toDecimal;
+    Webze.prototype.fromDecimal = utils.fromDecimal;
+    Webze.prototype.toBigNumber = utils.toBigNumber;
+    Webze.prototype.toWei = utils.toWei;
+    Webze.prototype.fromWei = utils.fromWei;
+    Webze.prototype.isAddress = utils.isAddress;
+    Webze.prototype.isChecksumAddress = utils.isChecksumAddress;
+    Webze.prototype.toChecksumAddress = utils.toChecksumAddress;
+    Webze.prototype.isIBAN = utils.isIBAN;
+    Webze.prototype.padLeft = utils.padLeft;
+    Webze.prototype.padRight = utils.padRight;
 
 
-Web3.prototype.sha3 = function(string, options) {
+    Webze.prototype.sha3 = function(string, options) {
     return '0x' + sha3(string, options);
 };
 
 /**
  * Transforms direct icap to address
  */
-Web3.prototype.fromICAP = function (icap) {
+    Webze.prototype.fromICAP = function (icap) {
     var iban = new Iban(icap);
     return iban.address();
 };
@@ -2605,15 +2605,15 @@ var properties = function () {
     ];
 };
 
-Web3.prototype.isConnected = function(){
+    Webze.prototype.isConnected = function(){
     return (this.currentProvider && this.currentProvider.isConnected());
 };
 
-Web3.prototype.createBatch = function () {
+    Webze.prototype.createBatch = function () {
     return new Batch(this);
 };
 
-module.exports = Web3;
+    module.exports = Webze;
 
 
 },{"./utils/sha3":19,"./utils/utils":20,"./version.json":21,"./webze/batch":24,"./webze/extend":28,"./webze/httpprovider":32,"./webze/iban":33,"./webze/ipcprovider":34,"./webze/methods/db":37,"./webze/methods/eth":38,"./webze/methods/net":39,"./webze/methods/personal":40,"./webze/methods/shh":41,"./webze/methods/swarm":42,"./webze/property":45,"./webze/requestmanager":46,"./webze/settings":47,"bignumber.js":"bignumber.js"}],23:[function(require,module,exports){
@@ -16328,14 +16328,14 @@ module.exports = XMLHttpRequest;
 })(this);
 
 },{}],"webze":[function(require,module,exports){
-var Web3 = require('./lib/webze');
+    var Webze = require('./lib/webze');
 
 // dont override global variable
-if (typeof window !== 'undefined' && typeof window.Web3 === 'undefined') {
-    window.Web3 = Web3;
+    if (typeof window !== 'undefined' && typeof window.Webze === 'undefined') {
+        window.Webze = Webze;
 }
 
-module.exports = Web3;
+    module.exports = Webze;
 
 },{"./lib/webze":22}]},{},["webze"])
 //# sourceMappingURL=webze.js.map

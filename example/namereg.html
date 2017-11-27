@@ -5,8 +5,8 @@
 <script type="text/javascript" src="../dist/webze.js"></script>
 <script type="text/javascript">
 
-    var Web3 = require('webze');
-    var webze = new Web3();
+    var Webze = require('webze');
+    var webze = new Webze();
     webze.setProvider(new webze.providers.HttpProvider("http://localhost:8545"));
     var from = webze.eth.coinbase;
     webze.eth.defaultAccount = from;
@@ -26,7 +26,7 @@
         webze.eth.namereg().reserve(name);
         document.getElementById('nameAvailability').innerText += ' Registering name in progress, please wait...';
     };
-    
+
     function changeAddress() {
         var name = document.getElementById('registerOwner').value;
         var address = document.getElementById('newAddress').value;
@@ -53,7 +53,7 @@
         var address = document.getElementById('address').value;
         document.getElementById('nameOf').innerText = webze.eth.namereg().name(address);
     };
-    
+
     function onNameKeyUp() {
         var name = document.getElementById('name').value;
         document.getElementById('addressOf').innerText = webze.eth.namereg().addr(name);

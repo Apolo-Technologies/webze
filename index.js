@@ -1,8 +1,8 @@
-var Web3 = require('./lib/webze');
+var Webze = require('./lib/webze');
 
 // dont override global variable
-if (typeof window !== 'undefined' && typeof window.Web3 === 'undefined') {
-    window.Web3 = Web3;
+if (typeof window !== 'undefined' && typeof window.Webze === 'undefined') {
+    window.Webze = Webze;
 }
 
-module.exports = Web3;
+module.exports = Webze;

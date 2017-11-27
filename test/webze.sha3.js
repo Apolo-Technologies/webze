@@ -1,8 +1,8 @@
 var chai = require('chai');
 var assert = chai.assert;
-var Web3 = require('../index');
+var Webze = require('../index');
 var sha3 = require('../lib/utils/sha3');
-var webze = new Web3();
+var webze = new Webze();
 
 var method = 'sha3';
 

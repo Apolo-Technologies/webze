@@ -1,6 +1,6 @@
 var chai = require('chai');
 var assert = chai.assert;
-var Web3 = require('../../index');
+var Webze = require('../../index');
 
 var FakeHttpProvider = require('./FakeHttpProvider');
 var clone = function (object) { return JSON.parse(JSON.stringify(object)); };
@@ -16,7 +16,7 @@ var runTests = function (obj, method, tests) {
                     
                     // given
                     var provider = new FakeHttpProvider();
-                    var webze = new Web3(provider);
+                    var webze = new Webze(provider);
                     provider.injectResult(test.result);
                     provider.injectValidation(function (payload) {
                         assert.equal(payload.jsonrpc, '2.0');
@@ -45,7 +45,7 @@ var runTests = function (obj, method, tests) {
                     
                     // given
                     var provider = new FakeHttpProvider();
-                    var webze = new Web3(provider);
+                    var webze = new Webze(provider);
                     provider.injectResult(test.result);
                     provider.injectValidation(function (payload) {
                         assert.equal(payload.jsonrpc, '2.0');

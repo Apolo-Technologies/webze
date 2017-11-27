@@ -1,7 +1,7 @@
 var chai = require('chai');
 var assert = chai.assert;
-var Web3 = require('../index');
-var webze = new Web3();
+var Webze = require('../index');
+var webze = new Webze();
 var BigNumber = require('bignumber.js');
 var FakeHttpProvider = require('./helpers/FakeHttpProvider');
 

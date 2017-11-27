@@ -8,8 +8,8 @@
 <script type="text/javascript" src="../dist/webze.js"></script>
 <script type="text/javascript">
 
-    var Web3 = require('webze');
-    var webze = new Web3();
+    var Webze = require('webze');
+    var webze = new Webze();
     var BigNumber = require('bignumber.js');
     webze.setProvider(new webze.providers.HttpProvider("http://localhost:8545"));
     var from = webze.eth.coinbase;
@@ -39,7 +39,7 @@
     var Deposit = webze.eth.contract(depositAbi);
 
     var namereg = webze.eth.ibanNamereg;
-    var deposit; 
+    var deposit;
     var iban;
 
     function validateNamereg() {
@@ -58,7 +58,7 @@
         updateIBAN(validateNamereg());
         onExchangeKeyUp();
     };
-    
+
     function validateExchange() {
         var exchange = document.getElementById('exchange').value;
         var ok = /^[0-9A-Z]{4}$/.test(exchange);
@@ -116,7 +116,7 @@
 
     function updateIBAN(ok) {
         var exchangeId = document.getElementById('exchange').value;
-        var clientId = document.getElementById('client').value; 
+        var clientId = document.getElementById('client').value;
         iban = webze.eth.iban.createIndirect({
             institution: exchangeId,
             identifier: clientId
@@ -139,7 +139,7 @@
         node.appendChild(textnode);
         document.getElementById('transfers').appendChild(node);
     }
-    
+
 </script>
 </head>
 <body>

@@ -1,5 +1,5 @@
-var Web3 = require('../index');
-var webze = new Web3();
+var Webzee = require('../index');
+var webze = new Webzee();
 var BigNumber = require('bignumber.js');
 var testMethod = require('./helpers/test.method.js');
 

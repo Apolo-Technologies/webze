@@ -5,8 +5,8 @@
 <script type="text/javascript" src="../dist/webze.js"></script>
 <script type="text/javascript">
 
-    var Web3 = require('webze');
-    var webze = new Web3();
+    var Webze = require('webze');
+    var webze = new Webze();
     webze.setProvider(new webze.providers.HttpProvider("http://localhost:8545"));
 
     // solidity code code
@@ -27,7 +27,7 @@
 
     function createExampleContract() {
         // hide create button
-        document.getElementById('create').style.visibility = 'hidden'; 
+        document.getElementById('create').style.visibility = 'hidden';
         document.getElementById('code').innerText = code;
 
         // let's assume that coinbase is our account

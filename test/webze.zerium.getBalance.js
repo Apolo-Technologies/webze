@@ -1,6 +1,6 @@
 var BigNumber = require('bignumber.js');
-var Web3 = require('../index');
-var webze = new Web3();
+var Webze = require('../index');
+var webze = new Webze();
 var testMethod = require('./helpers/test.method.js');
 
 var method = 'getBalance';

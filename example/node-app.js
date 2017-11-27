@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
-var Web3 = require('../index.js');
-var webze = new Web3();
+var Webze = require('../index.js');
+var webze = new Webze();
 
 webze.setProvider(new webze.providers.HttpProvider('http://localhost:8545'));
 

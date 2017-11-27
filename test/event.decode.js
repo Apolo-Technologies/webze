@@ -2,7 +2,7 @@ var chai = require('chai');
 var assert = chai.assert;
 var BigNumber = require('bignumber.js');
 var SolidityEvent = require('../lib/webze/event');
-var Web3 = require('../index');
+var Webze = require('../index');
 
 
 var name = 'event1';
@@ -171,7 +171,7 @@ describe('lib/webze/event', function () {
     describe('decode', function () {
         tests.forEach(function (test, index) {
             it('test no: ' + index, function () {
-                var webze = new Web3();
+                var webze = new Webze();
                 var event = new SolidityEvent(webze, test.abi, address);
 
                 var result = event.decode(test.data);

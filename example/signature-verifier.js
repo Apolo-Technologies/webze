@@ -1,9 +1,9 @@
 /**
  * This utility module helps to demonstrate following features
- * a. Signing a message by an Ethereum user
+ * a. Signing a message by an Zerium user
  * b. Finding the account address using which the message was signed
  */
-var Web3 = require('../index.js');
+var Webze = require('../index.js');
 var ethURL = ""; 
 var defaultAc = ""; 
 var defaultAcPWD=""; 
@@ -16,7 +16,7 @@ var sigContractInstance = null;
 var strAbi='[{"constant":true,"inputs":[{"name":"hash","type":"bytes32"},{"name":"v","type":"uint8"},{"name":"r","type":"bytes32"},{"name":"s","type":"bytes32"}],"name":"verify","outputs":[{"name":"returnAddress","type":"address"}],"payable":false,"type":"function"}]';
 var signMessage=""; 
 
-var ethWeb3 = null;
+var ethWebze = null;
 
 function setContractAddress(conAddress){
     sigContractAddress = conAddress;
@@ -30,7 +30,7 @@ function setPassword(pwd){
     defaultAcPWD = pwd;
 }
 
-function setEthereumURL(url){
+function setZeriumURL(url){
     ethURL = url;
 }
 
@@ -38,16 +38,16 @@ function setMessage(msg){
     signMessage = msg;
 }
 
-function initializeEthereumConnection(){
-   if(ethWeb3!=null && ethWeb3.isConnected()==true)  {
+function initializeZeriumConnection(){
+   if(ethWebze!=null && ethWebze.isConnected()==true)  {
     return true;
   }
   
-  ethWeb3 = new Web3(new Web3.providers.HttpProvider(ethURL));
+  ethWebze = new Webze(new Webze.providers.HttpProvider(ethURL));
   
-  if(ethWeb3.isConnected()==true){
+  if(ethWebze.isConnected()==true){
       if(defaultAc==''){
-        defaultAc=ethWeb3.eth.accounts[1];
+        defaultAc=ethWebze.eth.accounts[1];
       }
       return true;
   }
@@ -57,7 +57,7 @@ function initializeEthereumConnection(){
 
 function unlockAccount(acAddress){
   if(acAddress!=undefined && acAddress!=null){
-    var state=ethWeb3.personal.unlockAccount(defaultAc, defaultAcPWD, 100);
+    var state=ethWebze.personal.unlockAccount(defaultAc, defaultAcPWD, 100);
     return state;
   }
 
@@ -66,35 +66,35 @@ function unlockAccount(acAddress){
 
 
 function initializeContract(){
-    initializeEthereumConnection();
-    if(ethWeb3.isConnected()==false){
+    initializeZeriumConnection();
+    if(ethWebze.isConnected()==false){
         return;
     }  
     var abi = JSON.parse(strAbi);
-    var contract = ethWeb3.eth.contract(abi);
+    var contract = ethWebze.eth.contract(abi);
 
     sigContractInstance =  contract.at(sigContractAddress)  
 }
 
 function signMessage(message){
 
-    initializeEthereumConnection();
-    if(ethWeb3.isConnected()==false){
+    initializeZeriumConnection();
+    if(ethWebze.isConnected()==false){
         return false;
     }
     
     var state=unlockAccount(defaultAc);
     
     const msg = new Buffer(message);
-    const sig = ethWeb3.eth.sign(defaultAc, '0x' + msg.toString('hex'));
+    const sig = ethWebze.eth.sign(defaultAc, '0x' + msg.toString('hex'));
 
     return sig;
 }
 
 function verifySignedByAc(message, sig){
-    initializeEthereumConnection();
+    initializeZeriumConnection();
 
-    if(ethWeb3.isConnected()==false){
+    if(ethWebze.isConnected()==false){
         return false;
     }
     initializeContract();
@@ -103,9 +103,9 @@ function verifySignedByAc(message, sig){
 
     // Unfortunately Geth client adds this line to the message as a prefix while signing
     // So while finding who signed it we need to prefix this part 
-    const prefix = new Buffer("\x19Ethereum Signed Message:\n");
+    const prefix = new Buffer("\x19Zerium Signed Message:\n");
     const msg = new Buffer(message);
-    const prefixedMsg = ethWeb3.sha3(
+    const prefixedMsg = ethWebze.sha3(
     Buffer.concat([prefix, new Buffer(String(msg.length)), msg]).toString('utf8')
     );
 
@@ -118,7 +118,7 @@ function verifySignedByAc(message, sig){
 
 function splitSig(sig) {
   return {
-    v: ethWeb3.toDecimal('0x' + sig.slice(130, 132)),
+    v: ethWebze.toDecimal('0x' + sig.slice(130, 132)),
     r: sig.slice(0, 66),
     s: sig.slice(66, 130)
   }
@@ -145,15 +145,15 @@ function execute(){
     console.log("1. Deploy the following conract in your zerium environment");
     console.log(signatureContractCodeReadable);
     console.log("2. Set the following parameters (i.e. at the end of the code)");
-    console.log("\ta. Ethereum URL");
-    console.log("\tb. Ethereum Account Address");
-    console.log("\tc. Ethereum Account Passphrase");
+    console.log("\ta. Zerium URL");
+    console.log("\tb. Zerium Account Address");
+    console.log("\tc. Zerium Account Passphrase");
     console.log("\td. Signature Contract Address");
     console.log("\te. Message for signing");
     console.log("**********************************************************************");
 
     if(ethURL==''){
-        console.log("Error: Ethereum URL is not specified");
+        console.log("Error: Zerium URL is not specified");
         return;
     }
     if(defaultAc==''){
@@ -175,9 +175,9 @@ function execute(){
     
 
     console.log("Following parameters applied");
-    console.log("\ta. Ethereum URL                  :",ethURL);
-    console.log("\tb. Ethereum Account Address      :",defaultAc);
-    console.log("\tc. Ethereum Account Passphrase   :",defaultAcPWD);
+    console.log("\ta. Zerium URL                  :",ethURL);
+    console.log("\tb. Zerium Account Address      :",defaultAc);
+    console.log("\tc. Zerium Account Passphrase   :",defaultAcPWD);
     console.log("\td. Signature Contract Address    :",sigContractAddress);
     console.log("\te. Message for signing           :",signMessage);
 
@@ -212,9 +212,9 @@ function execute(){
 //setContractAddress('<Provide the deployed contract address>');
 
 // Value 4- If required please update with a different message
-setEthereumURL('http://localhost:8545');
+setZeriumURL('http://localhost:8545');
 
-// Value 5- If required please update with a Ethereum URL
+// Value 5- If required please update with a Zerium URL
 setMessage('This the test sign message');
 
 

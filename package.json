@@ -2,7 +2,7 @@
   "name": "webze",
   "namespace": "zerium",
   "version": "0.20.2",
-  "description": "Ethereum JavaScript API, middleware to talk to a zerium node over RPC",
+  "description": "Zerium JavaScript API, middleware to talk to a zerium node over RPC",
   "main": "./index.js",
   "directories": {
     "lib": "./lib"

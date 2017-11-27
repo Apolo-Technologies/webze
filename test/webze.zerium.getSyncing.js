@@ -1,7 +1,7 @@
 'use strict'
 
 var chai = require('chai');
-var Web3 = require('../index');
+var Webzee = require('../index');
 var assert = chai.assert;
 var FakeHttpProvider = require('./helpers/FakeHttpProvider');
 
@@ -10,7 +10,7 @@ describe('eth', function () {
         it('syncing object', function (done) {
             // given
             var provider = new FakeHttpProvider();
-            var webze = new Web3(provider);
+            var webze = new Webzee(provider);
             provider.injectResult({
                 startingBlock: '0xb',
                 currentBlock: '0xb',
@@ -35,7 +35,7 @@ describe('eth', function () {
         it('false', function (done) {
             // given
             var provider = new FakeHttpProvider();
-            var webze = new Web3(provider);
+            var webze = new Webzee(provider);
             provider.injectResult(false);
             provider.injectValidation(function(payload) {
                 assert.equal(payload.jsonrpc, '2.0', 'failed');

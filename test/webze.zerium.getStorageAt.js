@@ -1,6 +1,6 @@
 var chai = require('chai');
-var Web3 = require('../index');
-var webze = new Web3();
+var Webzee = require('../index');
+var webze = new Webzee();
 var testMethod = require('./helpers/test.method.js');
 
 var method = 'getStorageAt';

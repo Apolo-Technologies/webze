@@ -1,7 +1,7 @@
 var chai = require('chai');
 var assert = chai.assert;
-var Web3 = require('../index');
-var webze = new Web3();
+var Webzee = require('../index');
+var webze = new Webzee();
 var FakeHttpProvider = require('./helpers/FakeHttpProvider');
 
 var method = 'protocolVersion';

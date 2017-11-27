@@ -2,7 +2,7 @@
   "name": "webze",
   "namespace": "zerium",
   "version": "0.17.0-alpha",
-  "description": "Ethereum Compatible JavaScript API",
+  "description": "Zerium Compatible JavaScript API",
   "main": [
     "./dist/webze.js",
     "./dist/webze.min.js"

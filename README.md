@@ -5,23 +5,23 @@ To migrate to this version, please follow the guide:
 
 ```diff
 -var webze = require('webze');
-+var Web3 = require('webze');
-+var webze = new Web3();
++var Webze = require('webze');
++var webze = new Webze();
 ```
 
 
-# Ethereum JavaScript API
+# Zerium JavaScript API
 
 [![Join the chat at https://gitter.im/zerium/webze.js](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/zerium/webze.js?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
-This is the Ethereum compatible [JavaScript API](https://github.com/zerium/wiki/wiki/JavaScript-API)
+This is the Zerium compatible [JavaScript API](https://github.com/zerium/wiki/wiki/JavaScript-API)
 which implements the [Generic JSON RPC](https://github.com/zerium/wiki/wiki/JSON-RPC) spec. It's available on npm as a node module, for bower and component as an embeddable js and as a meteor.js package.
 
 [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![dependency status][dep-image]][dep-url] [![dev dependency status][dep-dev-image]][dep-dev-url] [![Coverage Status][coveralls-image]][coveralls-url] [![Stories in Ready][waffle-image]][waffle-url]
 
 <!-- [![browser support](https://ci.testling.com/zerium/zerium.js.png)](https://ci.testling.com/zerium/zerium.js) -->
 
-You need to run a local Ethereum node to use this library.
+You need to run a local Zerium node to use this library.
 
 [Documentation](https://github.com/zerium/wiki/wiki/JavaScript-API)
 
@@ -71,10 +71,10 @@ Set a provider (HttpProvider)
 
 ```js
 if (typeof webze !== 'undefined') {
-  webze = new Web3(webze.currentProvider);
+  webze = new Webze(webze.currentProvider);
 } else {
-  // set the provider you want from Web3.providers
-  webze = new Web3(new Web3.providers.HttpProvider("http://localhost:8545"));
+  // set the provider you want from Webze.providers
+  webze = new Webze(new Webze.providers.HttpProvider("http://localhost:8545"));
 }
 ```
 
@@ -127,7 +127,7 @@ npm test
 
 
 ### Other implementations
- - Python [Web3.py](https://github.com/pipermerriam/webze.py)
+ - Python [Webze.py](https://github.com/pipermerriam/webze.py)
  - Haskell [hs-webze](https://github.com/airalab/hs-webze)
  - Java [webzej](https://github.com/webzej/webzej)
 
