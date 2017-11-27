@@ -1,7 +1,7 @@
 var chai = require('chai');
 var assert = chai.assert; 
-var Webzee = require('../index.js');
-var webze = new Webzee();
+var Webze = require('../index.js');
+var webze = new Webze();
 var u = require('./helpers/test.utils.js');
 
 describe('webze.eth', function() {

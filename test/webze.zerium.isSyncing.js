@@ -1,5 +1,5 @@
 var chai = require('chai');
-var Webzee = require('../index');
+var Webze = require('../index');
 var assert = chai.assert;
 var FakeHttpProvider = require('./helpers/FakeHttpProvider');
 
@@ -45,7 +45,7 @@ describe('zrm', function () {
             it('property test: ' + index, function (done) {
                 // given
                 var provider = new FakeHttpProvider();
-                var webze = new Webzee(provider);
+                var webze = new Webze(provider);
                 provider.injectBatchResults(test.result);
                 provider.injectValidation(function(payload) {
                     assert.equal(payload[0].jsonrpc, '2.0', 'failed');

@@ -1,6 +1,6 @@
 var assert = require('assert');
 var FakeHttpProvider = require('./helpers/FakeHttpProvider');
-var Webzee = require('../index');
+var Webze = require('../index');
 
 
 describe('webze.eth.contract', function() {
@@ -25,7 +25,7 @@ describe('webze.eth.contract', function() {
         var address = '0x1234567890123456789012345678901234567892';
     
         // when
-        var webze = new Webzee();
+        var webze = new Webze();
         var myCon = webze.eth.contract(description).at(address);
 
         // then
@@ -54,7 +54,7 @@ describe('webze.eth.contract', function() {
         var address = '0x1234567890123456789012345678901234567892';
 
         // when
-        var webze = new Webzee();
+        var webze = new Webze();
         var myCon = webze.eth.contract(description).at(address);
 
         // then
@@ -97,7 +97,7 @@ describe('webze.eth.contract', function() {
         var address = '0x1234567890123456789012345678901234567892';
         
         // when
-        var webze = new Webzee();
+        var webze = new Webze();
         var myCon = webze.eth.contract(description).at(address);
 
         // then
@@ -142,7 +142,7 @@ describe('webze.eth.contract', function() {
         var address = '0x1234567890123456789012345678901234567892';
         
         // when
-        var webze = new Webzee();
+        var webze = new Webze();
         var myCon = webze.eth.contract(description).at(address);
 
         // then
@@ -171,7 +171,7 @@ describe('webze.eth.contract', function() {
         var address = '0x1234567890123456789012345678901234567892';
 
         // when
-        var webze = new Webzee();
+        var webze = new Webze();
         var myCon = webze.eth.contract(description).at(address);
 
         // then
@@ -200,7 +200,7 @@ describe('webze.eth.contract', function() {
         var address = '0x1234567890123456789012345678901234567892';
 
         // when
-        var webze = new Webzee();
+        var webze = new Webze();
         var myCon = webze.eth.contract(description).at(address);
 
         // then
@@ -211,7 +211,7 @@ describe('webze.eth.contract', function() {
 
     it('should create contract with nondefault constructor', function (done) {
         var provider = new FakeHttpProvider();
-        var webze = new Webzee(provider);
+        var webze = new Webze(provider);
         var address = '0x1234567890123456789012345678901234567894';
         var code = '0x31241231231123123123123121cf121212i123123123123123512312412512111111';
         var description =  [{

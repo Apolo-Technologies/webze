@@ -1,7 +1,7 @@
 var chai = require('chai');
 var assert = chai.assert;
-var Webzee = require('../index');
-var webze = new Webzee();
+var Webze = require('../index');
+var webze = new Webze();
 var FakeHttpProvider = require('./helpers/FakeHttpProvider');
 
 var method = 'mining';
