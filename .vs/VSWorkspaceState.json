@@ -1,7 +1,14 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\dist",
+    "\\lib",
+    "\\lib\\solidity",
+    "\\lib\\utils",
+    "\\lib\\webze",
+    "\\lib\\webze\\methods",
+    "\\test"
   ],
-  "SelectedNode": "\\test",
+  "SelectedNode": "\\lib\\webze.js",
   "PreviewInSolutionExplorer": false
 }
